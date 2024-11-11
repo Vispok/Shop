@@ -12,22 +12,19 @@
     <p>Select items to add to your cart</p>
 
     <div class="product">
-        <img src="download.jfif" alt="Maggie"
-        height="230px" width="200px">
+        <img src="download.jfif" alt="Maggie" height="230px" width="200px">
         <h2>Maggie</h2>
-        <button onclick="addToCart('Maggi')">Add to Cart</button>
+        <button onclick="addToCart('Maggie', 50)">Add to Cart</button>
     </div>
     <div class="product">
-        <img src="download (1).jfif" alt="Bourbon"
-        height="230px" width="200px">
+        <img src="download (1).jfif" alt="Bourbon" height="230px" width="200px">
         <h2>Bourbon Biscuits</h2>
-        <button onclick="addToCart('Bourbon Biscuits')">Add to Cart</button>
+        <button onclick="addToCart('Bourbon Biscuits', 30)">Add to Cart</button>
     </div>
     <div class="product">
-        <img src="0002698-haldirams-punjabi-tadka-200g.jpeg" alt="Punjabi Tadka"
-        height="230px" width="200px">
+        <img src="0002698-haldirams-punjabi-tadka-200g.jpeg" alt="Punjabi Tadka" height="230px" width="200px">
         <h2>Punjabi Tadka Namkeen</h2>
-        <button onclick="addToCart('Punjabi Tadka Namkeen')">Add to Cart</button>
+        <button onclick="addToCart('Punjabi Tadka Namkeen', 70)">Add to Cart</button>
     </div>
 
     <div id="cart" class="hidden">
@@ -59,6 +56,11 @@
         <h2>Order Confirmation</h2>
         <p>Please send your Name, Room Number, and Phone Number via WhatsApp to <b>7078268582</b> to confirm your order.</p>
         <a href="https://wa.me/917078268582" target="_blank">Send Details on WhatsApp</a>
+    </div>
+
+    <!-- Popup Notification for Added to Cart -->
+    <div id="add-to-cart-popup" class="popup">
+        <p>Item added to cart!</p>
     </div>
 
     <script src="script.js"></script>
