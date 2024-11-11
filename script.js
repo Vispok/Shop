@@ -1,53 +1,81 @@
-const cart = {
-    "Maggi": 0,
-    "Bourbon Biscuits": 0,
-    "Punjabi Tadka Namkeen": 0
-};
+let cart = [];
+let totalPrice = 0;
 
-function addToCart(item) {
-    cart[item]++;
-    document.getElementById("cart").classList.remove("hidden");
+// Function to add items to the cart
+function addToCart(item, price) {
+    cart.push({ item, price });
+    updateCart();
+    calculateTotal();
+    showPopup(); // Show popup when item is added to the cart
+}
+
+// Function to update the cart display
+function updateCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';  // Clear previous cart items
+    cart.forEach((cartItem, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
+        
+        const itemText = document.createElement('span');
+        itemText.textContent = `${cartItem.item} - ₹${cartItem.price}`;
+        
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = function() {
+            removeItem(index);
+        };
+        
+        itemDiv.appendChild(itemText);
+        itemDiv.appendChild(removeButton);
+        
+        cartItemsContainer.appendChild(itemDiv);
+    });
+
+    // Show the cart
+    document.getElementById('cart').classList.remove('hidden');
+}
+
+// Function to remove an item from the cart
+function removeItem(index) {
+    cart.splice(index, 1);  // Remove the item from the array
     updateCart();
     calculateTotal();
 }
 
-function updateCart() {
-    const cartItems = document.getElementById("cart-items");
-    cartItems.innerHTML = '';
-    for (const item in cart) {
-        if (cart[item] > 0) {
-            cartItems.innerHTML += `<p>${item}: ${cart[item]}</p>`;
-        }
-    }
-}
-
+// Function to calculate the total price
 function calculateTotal() {
-    const hostel = document.getElementById("hostel").value;
-    const paymentMethod = document.getElementById("payment-method").value;
-    const basePrice = hostel === "BH1" ? 13 : 15;
+    totalPrice = cart.reduce((total, cartItem) => total + cartItem.price, 0);
     
-    let total = 0;
-    for (const item in cart) {
-        total += cart[item] * basePrice;
+    // Update the displayed total price
+    document.getElementById('total-price').textContent = totalPrice;
+    
+    // Show/hide payment instructions based on selected method
+    const paymentMethod = document.getElementById('payment-method').value;
+    const paymentInstructions = document.getElementById('payment-instructions');
+    if (paymentMethod === 'UPI') {
+        paymentInstructions.classList.remove('hidden');
+    } else {
+        paymentInstructions.classList.add('hidden');
     }
-
-    if (paymentMethod === "COD") {
-        total += 1; // Additional charge for Cash on Delivery
-    }
-
-    document.getElementById("total-price").innerText = total;
-
-    // Show payment instructions if UPI is selected
-    document.getElementById("payment-instructions").classList.toggle(
-        "hidden", paymentMethod !== "UPI"
-    );
 }
 
+// Function to show the "Item Added to Cart" popup
+function showPopup() {
+    const popup = document.getElementById('add-to-cart-popup');
+    popup.classList.add('show'); // Display the popup
+    setTimeout(function() {
+        popup.classList.remove('show'); // Hide the popup after 3 seconds
+    }, 3000);
+}
+
+// Function to place the order (simplified for this example)
 function placeOrder() {
-    if (document.getElementById("total-price").innerText == "0") {
-        alert("Your cart is empty!");
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
         return;
     }
-
-    document.getElementById("order-confirmation").classList.remove("hidden");
+    
+    alert('Order placed successfully!');
+    document.getElementById('order-confirmation').classList.remove('hidden');
 }
