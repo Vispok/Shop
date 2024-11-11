@@ -43,3 +43,25 @@ button:hover {
 h1, h2, p {
     color: #333;
 }
+/* Popup Style */
+.popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    display: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.popup.show {
+    display: block;
+    opacity: 1;
+}
+
